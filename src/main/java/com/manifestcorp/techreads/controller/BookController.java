@@ -1,10 +1,13 @@
 package com.manifestcorp.techreads.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,6 +42,35 @@ public class BookController {
     public RedirectView addBook(Book book){
         bookRepository.saveAndFlush(book);
         return new RedirectView("books");
+    }
+
+    @RequestMapping("/{id}")
+    public ModelAndView details(@PathVariable(value = "id") String id){
+        ModelAndView mav = new ModelAndView("details");
+        Book book = bookRepository.getById(Long.valueOf(id));
+        mav.addObject("book",book);
+        return mav;
+    }
+
+//    @RequestMapping("/edit/{id}")
+//    public ModelAndView edit(@PathVariable(value = "id") String id){
+//        ModelAndView mav = new ModelAndView("add");
+//        Book book = bookRepository.getById(Long.valueOf(id));
+//        mav.addObject("bookForm", book);
+//        return mav;
+//    }
+
+    @RequestMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable(value = "id") String id){
+        Book book = bookRepository.getById(Long.valueOf(id));
+        model.addAttribute("bookForm", book);
+        return "add";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public RedirectView delete(@PathVariable(value = "id") String id){
+        bookRepository.deleteById(Long.valueOf(id));
+        return new RedirectView("/");
     }
 
 

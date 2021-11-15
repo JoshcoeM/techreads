@@ -13,11 +13,17 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String title;
+    String coverUrl;
+    String author;
+    String rating;
 
     public Book(){}
 
-    public Book(String title){
+    public Book(String title, String coverUrl, String author, String rating){
         this.title=title;
+        this.coverUrl=coverUrl;
+        this.author=author;
+        this.rating=rating;
     }
 
     public Long getId(){return id;}
@@ -25,4 +31,13 @@ public class Book {
 
     public String getTitle(){return title;}
     public void setTitle(String title){this.title=title;}
+
+    public String getCoverUrl() {return coverUrl;}
+    public void setCoverUrl(String coverUrl) {this.coverUrl = coverUrl;}
+
+    public String getAuthor() {return author;}
+    public void setAuthor(String author) {this.author = author;}
+
+    public String getRating() {return rating;}
+    public void setRating(String rating) {this.rating = rating;}
 }
