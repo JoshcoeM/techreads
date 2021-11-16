@@ -21,8 +21,8 @@
             <table>
                 <tr>
                     <th>ID</th>
-                    <th>Book Cover</th>
                     <th>Title</th>
+                    <th>Book Cover</th>
                     <th>Author</th>
                     <th>Rating</th>
                 </tr>
@@ -30,7 +30,7 @@
                         <tr>
                             <td><a href="/books/<c:out value="${book.id}"/>"><c:out value="${book.id}"/></a></td>
                             <td><c:out value="${book.title}"/></td>
-                            <td><c:out value="${book.coverUrl}"/></td>
+                            <td><img src="<c:out value="${book.coverUrl}"/>" /></td>
                             <td><c:out value="${book.author}"/></td>
                             <td><div class="center"><c:out value="${book.rating}"/></div></td>                        </tr>
                     </c:forEach>
