@@ -26,28 +26,29 @@ public class APIController  {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<List<Book>> add(){
-        Book book = new Book();
+    public ResponseEntity<List<Book>> add(@RequestBody Book book){
         bookRepository.saveAndFlush(book);
         List<Book> books = bookRepository.findAll();
         return new ResponseEntity<>(books, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public Optional<Book> details(@PathVariable("id") String id){
-        Optional<Book> book = Optional.of(bookRepository.findById(Long.valueOf(id)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    public Optional<Book> details(@PathVariable("id") Long id){
+        Optional<Book> book = Optional.of(bookRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         return book;
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void edit(@PathVariable("id") String id, @RequestBody Book book){
+    public ResponseEntity<Book> edit(@PathVariable("id") Long id, @RequestBody Book book){
+        book.setId(id);
         bookRepository.saveAndFlush(book);
+        return new ResponseEntity(book, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<List<Book>> delete(@PathVariable(value = "id") String id){
-        bookRepository.deleteById(Long.valueOf(id));
+    public ResponseEntity<List<Book>> delete(@PathVariable(value = "id") Long id){
+        bookRepository.deleteById(id);
         List<Book> books= bookRepository.findAll();
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
