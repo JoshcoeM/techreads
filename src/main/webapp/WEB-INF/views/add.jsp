@@ -12,7 +12,7 @@
         <h2>Title <br> <form:input path="title" type="text"/></h2>
         <h2>CoverUrl <br> <form:input path="coverUrl" type="text"/></h2>
         <h2>Author <br><form:input path="author" type="text"/></h2>
-        <h2>Rating <br><form:input path="rating" type="text"/></h2>
+        <h2>Rating <br><form:input path="rating" type="number" min="1" max ="5" step="0.1"/></h2>
         <button type="submit">Add</button>
     </form:form>
 
