@@ -1,7 +1,6 @@
 package com.manifestcorp.techreads.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,23 +43,23 @@ public class BookController {
     }
 
     @RequestMapping("/{id}")
-    public ModelAndView details(@PathVariable(value = "id") String id){
+    public ModelAndView details(@PathVariable(value = "id") Long id){
         ModelAndView mav = new ModelAndView("details");
-        Book book = bookRepository.getById(Long.valueOf(id));
+        Book book = bookRepository.getById(id);
         mav.addObject("book",book);
         return mav;
     }
     
-    @RequestMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable(value = "id") String id){
-        Book book = bookRepository.getById(Long.valueOf(id));
+    @RequestMapping("edit/{id}")
+    public String edit(Model model, @PathVariable(value = "id") Long id){
+        Book book = bookRepository.getById(id);
         model.addAttribute("bookForm", book);
         return "add";
     }
 
-    @RequestMapping("/{id}/delete")
-    public RedirectView delete(@PathVariable(value = "id") String id){
-        bookRepository.deleteById(Long.valueOf(id));
+    @RequestMapping("delete/{id}")
+    public RedirectView delete(@PathVariable(value = "id") Long id){
+        bookRepository.deleteById(id);
         return new RedirectView("/");
     }
 

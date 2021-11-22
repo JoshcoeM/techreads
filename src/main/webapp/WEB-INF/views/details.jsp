@@ -15,8 +15,8 @@
 <h1><a href="/books">Books</a></h1>
 
 <a href="<c:url value="/books/add" />">Add Books</a>
-<a href="/books/<c:out value="${book.id}"/>/delete"> Delete This Book</a>
-<a href="/books/<c:out value="${book.id}"/>/edit"> Edit This Book</a>
+<a href="/books/delete/<c:out value="${book.id}"/>"> Delete This Book</a>
+<a href="/books/edit/<c:out value="${book.id}"/>"> Edit This Book</a>
 
 
 <c:if test="${not empty book}">

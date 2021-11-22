@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class APIController  {
 
     @PostMapping("/add")
     public ResponseEntity<List<Book>> add(){
-        Book book = new Book("Title", "URL", "Author", "0/0");
+        Book book = new Book();
         bookRepository.saveAndFlush(book);
         List<Book> books = bookRepository.findAll();
         return new ResponseEntity<>(books, HttpStatus.CREATED);
@@ -34,7 +35,7 @@ public class APIController  {
 
     @GetMapping("/{id}")
     public Optional<Book> details(@PathVariable("id") String id){
-        Optional<Book> book = Optional.of(bookRepository.findById(Long.valueOf(id)).orElse(new Book()));
+        Optional<Book> book = Optional.of(bookRepository.findById(Long.valueOf(id)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
         return book;
     }
 

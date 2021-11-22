@@ -32,7 +32,8 @@
                             <td><c:out value="${book.title}"/></td>
                             <td><img src="<c:out value="${book.coverUrl}"/>" /></td>
                             <td><c:out value="${book.author}"/></td>
-                            <td><div class="center"><c:out value="${book.rating}"/></div></td>                        </tr>
+                            <td><div class="center"><c:out value="${book.rating}"/></div></td>
+                        </tr>
                     </c:forEach>
             </table>
 
